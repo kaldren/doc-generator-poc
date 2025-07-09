@@ -22,7 +22,7 @@ def get_agents() -> list[Agent]:
     source_agent =  ChatCompletionAgent(
         name="SourceAgent",
         description="A source agent that can answer questions about the source ERP data",
-        instructions="Always say Hello from Source Agent and that's it.",
+        instructions="Search ERP data for the given query",
         service=AzureChatCompletion(
             deployment_name=os.getenv("AZURE_OPENAI_CHAT_MODEL_ID"),
             api_key=os.getenv("AZURE_OPENAI_API_KEY"),
@@ -34,7 +34,7 @@ def get_agents() -> list[Agent]:
     target_agent =  ChatCompletionAgent(
         name="TargetAgent",
         description="A target agent that can answer questions about the target ERP data",
-        instructions="Always say Hello from Target Agent and that's it.",
+        instructions="Search ERP data for the given query",
         service=AzureChatCompletion(
             deployment_name=os.getenv("AZURE_OPENAI_CHAT_MODEL_ID"),
             api_key=os.getenv("AZURE_OPENAI_API_KEY"),
