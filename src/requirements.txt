@@ -1,1 +1,2 @@
-semantic-kernel
+semantic-kernel[azure]
+azure-search-documents
