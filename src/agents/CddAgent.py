@@ -19,7 +19,7 @@ class CddAgent:
     
     def _initialize_agent(self):
         """Initialize the CDD agent with specific instructions for ERP data conversion"""
-        instructions = f"""You are a CDD (Cross-System Data Dictionary) specialist expert in converting data between ERP systems.
+        instructions = f"""You are a CDD (Conversion Design Document) specialist expert in converting data between ERP systems.
 
 Your task is to help convert data from {self.source_erp} ERP to {self.target_erp} ERP.
 
@@ -29,6 +29,7 @@ Key responsibilities:
 3. Provide detailed field mapping recommendations
 4. Suggest data transformation rules where needed
 5. Identify potential data quality issues or incompatibilities
+6. At the end, always provide a table with the mapping of the data between the two systems.
 
 Additional context for this conversion:
 {self.additional_context}

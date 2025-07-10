@@ -8,8 +8,8 @@ dotenv.load_dotenv()
 
 # Page configuration
 st.set_page_config(
-    page_title="ERP Data Conversion Assistant",
-    page_icon="🔄",
+    page_title="CDD Agent Demo",
+    page_icon="🤖",
     layout="wide"
 )
 
@@ -21,7 +21,7 @@ if 'chat_history' not in st.session_state:
 if 'agent_initialized' not in st.session_state:
     st.session_state.agent_initialized = False
 
-st.title("🔄 ERP Data Conversion Assistant")
+st.title("CDD Agent Demo")
 st.markdown("Convert data between ERP systems using AI-powered CDD analysis")
 
 # Create two columns for the main layout
