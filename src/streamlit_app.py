@@ -22,7 +22,7 @@ if 'agent_initialized' not in st.session_state:
     st.session_state.agent_initialized = False
 
 st.title("CDD Agent Demo")
-st.markdown("Convert data between ERP systems using AI-powered CDD analysis")
+st.markdown("Produce Conversion Design Document (CDD) using AI-powered agent.")
 
 # Create two columns for the main layout
 col1, col2 = st.columns([1, 2])
@@ -45,13 +45,13 @@ with col1:
         )
         
         additional_context = st.text_area(
-            "Additional Context",
-            placeholder="Enter CSV data, field mappings, or other relevant information...",
+            "Strategy Document",
+            placeholder="Paste the strategy document here.",
             height=150,
-            help="Provide additional context like CSV data, field descriptions, or specific migration requirements"
+            help="A strategy document is a document that outlines the strategy for the ERP conversion."
         )
         
-        submit_config = st.form_submit_button("Initialize CDD Agent", type="primary")
+        submit_config = st.form_submit_button("Generate CDD", type="primary")
     
     # Initialize agent when form is submitted
     if submit_config and source_erp and target_erp:
@@ -112,10 +112,10 @@ with col1:
                 f"📤 Target: {st.session_state.cdd_agent.target_erp}")
 
 with col2:
-    st.header("Chat Interface")
+    st.header("CDD Generation")
     
     if not st.session_state.agent_initialized:
-        st.info("👈 Please configure and initialize the CDD Agent first")
+        st.info("Fill in the configuration and click 'Generate CDD' to start the generation.")
     else:
         # Chat container
         chat_container = st.container()
@@ -179,15 +179,8 @@ with st.sidebar:
     st.markdown("""
     **Getting Started:**
     1. Enter your source and target ERP systems
-    2. Add any relevant context (CSV data, mappings, etc.)
-    3. Click "Initialize CDD Agent"
-    4. Start asking questions about data conversion
-    
-    **Example Questions:**
-    - "How do I map customer data from Alpha to Beta?"
-    - "What are the field differences between these systems?"
-    - "Help me convert this CSV data structure"
-    - "Are there any data quality issues I should watch for?"
+    2. Paste the strategy document that outlines the strategy for the ERP conversion.
+    3. Click "Generate CDD"
     """)
     
     st.header("🔧 Environment")
@@ -205,6 +198,11 @@ with st.sidebar:
             st.success(f"✅ {var}")
         else:
             st.error(f"❌ {var}")
+
+    st.header("🗄️ Data")
+    st.write("See the data that was ingested into Azure AI Search.")
+    if st.button("Show Ingested Data"):
+        st.switch_page("pages/ingested-data.py")
 
 # Cleanup function (called when app closes)
 if st.session_state.agent_initialized and st.session_state.cdd_agent:
