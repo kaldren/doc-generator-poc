@@ -52,7 +52,7 @@ async def main():
     group_chat_orchestration = GroupChatOrchestration(
         members=agents,
         # max_rounds is odd, so that the writer gets the last round
-        manager=RoundRobinGroupChatManager(max_rounds=15),
+        manager=RoundRobinGroupChatManager(max_rounds=5),
         agent_response_callback=agent_response_callback,
     )
 

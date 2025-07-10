@@ -1,2 +1,3 @@
 semantic-kernel[azure]
 azure-search-documents
+openai
