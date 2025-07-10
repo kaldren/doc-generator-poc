@@ -34,18 +34,61 @@ with col1:
     with st.form("erp_config_form"):
         source_erp = st.text_input(
             "Source ERP System",
-            placeholder="e.g., Alpha ERP",
+            value="Alpha ERP",
+            placeholder="We only support Alpha ERP for now. LOL!",
             help="Enter the name of the source ERP system"
         )
         
         target_erp = st.text_input(
             "Target ERP System", 
-            placeholder="e.g., Beta ERP",
+            value="Beta ERP",
+            placeholder="We only support Beta ERP for now. LOL!",
             help="Enter the name of the target ERP system"
         )
         
         additional_context = st.text_area(
             "Strategy Document",
+            value="""
+                Strategy Document – Alpha ERP to Beta ERP Supplier Contact Data Conversion
+
+                As part of our ERP migration initiative, we are transitioning supplier contact records from the legacy Alpha ERP system to the Beta ERP platform. The current dataset includes supplier names, contact details, and unique identifiers that are critical for procurement, compliance tracking, and audit readiness.
+
+                The goal of this conversion is to:
+                - Preserve data integrity during field transformations.
+                - Comply with Beta ERP's formatting standards (e.g., E.164 for phone numbers).
+                - Normalize inconsistent fields from Alpha ERP (e.g., upper/lower case, name concatenation).
+                - Minimize post-conversion manual cleanup.
+
+                Specific considerations:
+                - All `CustomerID`s from Alpha must be transformed into Beta's `AccountNumber` format using the rule: `"CUST-" + CustomerID`, capped at 20 characters.
+                - Contact names in Alpha are stored in `FirstName` and `LastName` and must be merged into `ContactName` in Beta.
+                - Emails should be converted to lowercase to align with Beta's normalization policy.
+                - Phone numbers need to be re-formatted to E.164 standard where possible.
+
+                Please process the following dataset and convert it into Beta ERP’s expected format using the above transformation logic.
+
+                ---
+
+                Convert the following Alpha ERP data into the Beta ERP format.
+                Follow these rules from the target ERP:
+
+                CustomerID, SupplierName, FirstName, LastName, Email, Phone
+                10001, Contoso Inc., John, Smith, John@Contoso.com, (206) 555-1234
+                10002, Fabrikam LLC, Alice, Johnson, Alice@Fabrikam.com, 555-678-9012
+                10003, Tailspin Toys, Bob, Adams, Bob@Tailspin.com, +1 800 555 0199
+                10001, Contoso Inc., John, Smith, John@Contoso.com, (206) 555-1234
+                10002, Fabrikam LLC, Alice, Johnson, Alice@Fabrikam.com, 555-678-9012
+                10003, Tailspin Toys, Bob, Adams, Bob@Tailspin.com, +1 800 555 0199
+                10004, Northwind Traders, Emily, Clark, Emily@Northwind.com, 404-555-7788
+                10005, Adventure Works, Michael, Brown, Mike@Adventure.com, +1 (408) 555-1212
+                10006, Alpine Ski House, Sarah, Thompson, sarah@alpine.com, (512) 999-0000
+                10007, Blue Yonder, David, Lee, dlee@blueyonder.com, 212-333-4567
+                10008, Proseware Inc., Laura, Martinez, laura@proseware.com, +44 20 7946 0958
+                10009, Litware, Steve, Wilson, swilson@litware.com, 7135550101
+                10010, Wide World Importers, Rachel, Green, rachel.green@importers.com, (503) 321-0001
+                10011, Southridge Video, Tom, Hardy, tom.hardy@southridge.com, 999-888-7777
+                10012, Coho Winery, Olivia, Davis, olivia@cohowines.com, 800-222-3333
+            """,
             placeholder="Paste the strategy document here.",
             height=150,
             help="A strategy document is a document that outlines the strategy for the ERP conversion."
@@ -69,12 +112,6 @@ with col1:
                 # Send additional context as the first message if provided
                 if additional_context.strip():
                     context_message = f"Here is the additional context for this ERP conversion:\n\n{additional_context}"
-                    
-                    # Add user message to chat history
-                    st.session_state.chat_history.append({
-                        "role": "user",
-                        "content": context_message
-                    })
                     
                     # Process the context with the agent and get response
                     try:
